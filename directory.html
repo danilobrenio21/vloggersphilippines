@@ -231,16 +231,16 @@
       font-weight: 700;
     }
 
-    /* --- REAL INTERACTIVE PHILIPPINES YELLOW/DARK RADAR MAP --- */
+    /* --- REAL INTERACTIVE PHILIPPINES ONLY YELLOW RADAR MAP --- */
     .map-container {
-      background: #0a0a0a;
+      background: #000000;
       border: 1px solid var(--border-accent);
       border-radius: 16px;
       padding: 20px 16px;
       margin-bottom: 36px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px var(--yellow-glow);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(250,204,21,0.1);
     }
 
     .map-header {
@@ -286,15 +286,14 @@
       width: 100%;
       height: 420px;
       border-radius: 12px;
-      border: 1px solid #27272a;
-      background: #050505;
+      border: 1px solid #1a1a1a;
+      background: #000000;
       z-index: 1;
     }
 
-    /* --- SPECIAL YELLOW MAP SHIFT FILTER --- */
-    /* Transforms grayscale tiles into Cyberpunk Gold/Yellow Lines on Black */
-    .yellow-map-tiles {
-      filter: invert(1) brightness(0.9) sepia(1) hue-rotate(5deg) saturate(9) contrast(1.5) !important;
+    /* Pure Black Background Leaflet override */
+    .leaflet-container {
+      background: #000000 !important;
     }
 
     /* Radar Beacon Custom Marker */
@@ -620,22 +619,33 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <script>
-    // 1. Initialize Real Geographic Philippines Centered Map
+    // 1. Initialize Pure Black Canvas Map
     const map = L.map('phMap', {
-      center: [12.8797, 121.7740], // Geographic Center of the Philippines
+      center: [12.8797, 121.7740], // Center of the Philippines
       zoom: 6,
       minZoom: 5,
-      maxZoom: 12,
+      maxZoom: 10,
       zoomControl: true,
+      attributionControl: false,
       scrollWheelZoom: false
     });
 
-    // 2. Base Tile Layer styled with Custom Yellow/Black Filter
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles &copy; Esri',
-      maxZoom: 16,
-      className: 'yellow-map-tiles'
-    }).addTo(map);
+    // 2. Load Accurate Real Geographic Boundaries of ONLY the Philippines
+    // Renders the landmass in Glowing Cyber Yellow with Black Background
+    fetch('https://raw.githubusercontent.com/faeldon/philippines-json-maps/master/geojson/country/lowres/country.0.1.json')
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          style: {
+            color: "#facc15",        // Glowing Yellow Border
+            weight: 1.5,
+            fillColor: "#facc15",    // Cyber Yellow Landmass Fill
+            fillOpacity: 0.35,       // High-tech translucent yellow
+            opacity: 0.95
+          }
+        }).addTo(map);
+      })
+      .catch(err => console.log('Vector load err:', err));
 
     // 3. Helper function to create Animated Red Radar Marker Icon
     function createRadarIcon() {
@@ -653,7 +663,7 @@
       });
     }
 
-    // 4. Coordinates for Major Philippine Regional Creative Hubs
+    // 4. Regional Creative Hubs Coordinates
     const hubs = [
       { name: "Metro Manila Hub", coords: [14.5995, 120.9842], count: "2,400+ Active Creators", niche: "Vlog, Entertainment & Tech" },
       { name: "Cebu City Hub", coords: [10.3157, 123.8854], count: "680+ Active Creators", niche: "Travel, Gaming & Lifestyle" },
