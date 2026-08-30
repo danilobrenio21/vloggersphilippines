@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Creator Directory | Vloggers Philippines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card-bg: #141414;
+      --card-hover: #1c1c1c;
+      --accent-yellow: #facc15;
+      --yellow-glow: rgba(250, 204, 21, 0.25);
+      --text-white: #ffffff;
+      --text-muted: #a1a1aa;
+      --border: #27272a;
+      --border-accent: rgba(250, 204, 21, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    .glow-bg {
+      position: fixed;
+      top: -150px;
+      right: -100px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, var(--yellow-glow) 0%, rgba(0,0,0,0) 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Fixed Navigation Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+    }
+
+    .nav-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .brand-badge {
+      background: var(--accent-yellow);
+      color: #000;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 4px 0;
+    }
+
+    nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--accent-yellow);
+    }
+
+    .btn-action {
+      background: transparent;
+      border: 1.5px solid var(--accent-yellow);
+      color: var(--accent-yellow) !important;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-action:hover {
+      background: var(--accent-yellow);
+      color: #000 !important;
+      box-shadow: 0 0 12px var(--yellow-glow);
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .tag-yellow {
+      color: var(--accent-yellow);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Search & Filter Controls */
+    .search-box {
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-white);
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-yellow);
+      box-shadow: 0 0 12px var(--yellow-glow);
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      margin-bottom: 28px;
+      scrollbar-width: none;
+    }
+
+    .filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent-yellow);
+      color: #000;
+      border-color: var(--accent-yellow);
+      font-weight: 700;
+    }
+
+    /* Creator Cards Grid */
+    .creator-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .creator-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .creator-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    .creator-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #27272a;
+      border: 2px solid var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent-yellow);
+      flex-shrink: 0;
+    }
+
+    .creator-info {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .creator-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .creator-handle {
+      font-size: 0.8rem;
+      color: var(--accent-yellow);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .creator-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .meta-tag {
+      background: #1e1e24;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .view-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-white);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .view-btn:hover {
+      background: var(--accent-yellow);
+      color: #000;
+      border-color: var(--accent-yellow);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      background: #080808;
+      padding: 40px 20px;
+      margin-top: 50px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    /* Desktop View */
+    @media (min-width: 768px) {
+      .nav-container {
+        padding: 18px 24px;
+      }
+      .brand {
+        font-size: 1.5rem;
+      }
+      main {
+        padding: 40px 24px;
+      }
+      h1 {
+        font-size: 2.4rem;
+      }
+      .creator-grid {
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 22px;
+      }
+      .creator-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-bg"></div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        VLOGGERS <span class="brand-badge">PH</span>
+      </a>
+      <nav>
+        <a href="directory.html" class="active">Directory</a>
+        <a href="creators.html">Creators</a>
+        <a href="film.html">Film & TV</a>
+        <a href="pop-culture.html">Pop Culture</a>
+        <a href="tech.html">Tech</a>
+        <a href="pitch.html" class="btn-action">Submit Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <span class="tag-yellow">National Creator Index</span>
+    <h1>Filipino Creators & Vloggers Directory</h1>
+    <p class="subtitle">Search, discover, and connect with video creators, filmmakers, and digital storytellers across the Philippines.</p>
+
+    <div class="search-box">
+      <input type="text" id="creatorSearch" class="search-input" placeholder="Search creator name, niche, or handle..." onkeyup="filterCreators()">
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCategory('all', this)">All Niches</button>
+      <button class="filter-btn" onclick="filterCategory('tech', this)">Tech & Gear</button>
+      <button class="filter-btn" onclick="filterCategory('film', this)">Filmmaking & Cinema</button>
+      <button class="filter-btn" onclick="filterCategory('lifestyle', this)">Lifestyle & Vlog</button>
+      <button class="filter-btn" onclick="filterCategory('gaming', this)">Gaming & Esports</button>
+    </div>
+
+    <div class="creator-grid" id="creatorList">
+
+      <div class="creator-card" data-category="film">
+        <div class="creator-avatar">VP</div>
+        <div class="creator-info">
+          <div class="creator-name">VPH Studios</div>
+          <div class="creator-handle">@vloggersph</div>
+          <div class="creator-meta">
+            <span class="meta-tag">Film & Documentary</span>
+            <span class="meta-tag">Metro Manila</span>
+          </div>
+        </div>
+        <a href="article-template.html" class="view-btn">View Profile</a>
+      </div>
+
+      <div class="creator-card" data-category="tech">
+        <div class="creator-avatar">TR</div>
+        <div class="creator-info">
+          <div class="creator-name">Tech Review PH</div>
+          <div class="creator-handle">@techreviewph</div>
+          <div class="creator-meta">
+            <span class="meta-tag">Tech & Gear</span>
+            <span class="meta-tag">Quezon City</span>
+          </div>
+        </div>
+        <a href="#" class="view-btn">View Profile</a>
+      </div>
+
+      <div class="creator-card" data-category="lifestyle">
+        <div class="creator-avatar">MN</div>
+        <div class="creator-info">
+          <div class="creator-name">Manila Nomad</div>
+          <div class="creator-handle">@manilanomad</div>
+          <div class="creator-meta">
+            <span class="meta-tag">Lifestyle & Vlog</span>
+            <span class="meta-tag">Pasig</span>
+          </div>
+        </div>
+        <a href="#" class="view-btn">View Profile</a>
+      </div>
+
+      <div class="creator-card" data-category="gaming">
+        <div class="creator-avatar">GG</div>
+        <div class="creator-info">
+          <div class="creator-name">Pinoy Game Hub</div>
+          <div class="creator-handle">@pinoygamehub</div>
+          <div class="creator-meta">
+            <span class="meta-tag">Gaming & Esports</span>
+            <span class="meta-tag">Cebu</span>
+          </div>
+        </div>
+        <a href="#" class="view-btn">View Profile</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    let currentCategory = 'all';
+
+    function filterCategory(category, button) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      filterCreators();
+    }
+
+    function filterCreators() {
+      const input = document.getElementById('creatorSearch').value.toLowerCase();
+      const cards = document.querySelectorAll('.creator-card');
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const category = card.getAttribute('data-category');
+        const matchesCategory = currentCategory === 'all' || category === currentCategory;
+        const matchesSearch = text.includes(input);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+  <footer>
+    <p>&copy; 2026 <strong>Vloggers Philippines</strong>. Independent Creator, Film & Pop Culture Media.</p>
+  </footer>
+
+</body>
+</html>
