@@ -57,22 +57,22 @@
       background: rgba(10, 10, 10, 0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      width: 100%;
     }
 
     .nav-container {
       max-width: 1240px;
       margin: 0 auto;
-      padding: 14px 20px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
       gap: 12px;
     }
 
     .brand {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: -0.5px;
       color: var(--text-white);
@@ -80,25 +80,26 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
 
     .brand-badge {
       background: var(--accent-yellow);
       color: #000;
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 4px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 800;
     }
 
     nav {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       align-items: center;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      padding-bottom: 2px;
+      padding: 4px 0;
     }
 
     nav::-webkit-scrollbar {
@@ -108,33 +109,34 @@
     nav a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 600;
       white-space: nowrap;
+      flex-shrink: 0;
       transition: color 0.2s ease;
     }
 
-    nav a:hover {
+    nav a:hover, nav a.active {
       color: var(--accent-yellow);
     }
 
     .btn-action {
       background: transparent;
       border: 1.5px solid var(--accent-yellow);
-      color: var(--accent-yellow);
-      padding: 6px 14px;
+      color: var(--accent-yellow) !important;
+      padding: 5px 12px;
       border-radius: 6px;
       font-weight: 700;
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       white-space: nowrap;
+      flex-shrink: 0;
       transition: all 0.3s ease;
-      display: inline-block;
     }
 
     .btn-action:hover, .btn-action:active {
       background: var(--accent-yellow);
-      color: #000;
+      color: #000 !important;
       box-shadow: 0 0 12px var(--yellow-glow);
     }
 
@@ -147,7 +149,7 @@
       padding: 24px 16px 40px;
     }
 
-    /* Category Filter Bar */
+    /* Responsive Category Filter Bar */
     .filter-wrapper {
       position: relative;
       margin-bottom: 28px;
@@ -375,11 +377,10 @@
       font-size: 0.82rem;
     }
 
-    /* Desktop Scaling */
+    /* Desktop View */
     @media (min-width: 768px) {
       .nav-container {
         padding: 18px 24px;
-        gap: 20px;
       }
       .brand {
         font-size: 1.5rem;
@@ -432,6 +433,7 @@
         VLOGGERS <span class="brand-badge">PH</span>
       </a>
       <nav>
+        <a href="directory.html">Directory</a>
         <a href="creators.html">Creators</a>
         <a href="film.html">Film & TV</a>
         <a href="pop-culture.html">Pop Culture</a>
@@ -445,9 +447,9 @@
     <div class="filter-wrapper">
       <div class="filter-bar">
         <a href="index.html" class="filter-btn active">All Feed</a>
+        <a href="directory.html" class="filter-btn">Creators Directory</a>
         <a href="creators.html" class="filter-btn">Influencer Culture</a>
         <a href="film.html" class="filter-btn">Film & Production</a>
-        <a href="creators.html" class="filter-btn">Interviews</a>
         <a href="pop-culture.html" class="filter-btn">Pop Trends</a>
         <a href="tech.html" class="filter-btn">Gear Reviews</a>
       </div>
