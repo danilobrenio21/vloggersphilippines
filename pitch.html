@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit a Story Pitch | Vloggers Philippines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card-bg: #141414;
+      --accent-yellow: #facc15;
+      --yellow-glow: rgba(250, 204, 21, 0.25);
+      --text-white: #ffffff;
+      --text-muted: #a1a1aa;
+      --border: #27272a;
+      --border-accent: rgba(250, 204, 21, 0.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text-white); line-height: 1.6; }
+    .glow-bg { position: fixed; top: -150px; right: -100px; width: 350px; height: 350px; background: radial-gradient(circle, var(--yellow-glow) 0%, rgba(0,0,0,0) 70%); z-index: 0; pointer-events: none; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-container { max-width: 1240px; margin: 0 auto; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text-white); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .brand-badge { background: var(--accent-yellow); color: #000; padding: 2px 7px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; }
+    .back-link { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .back-link:hover { color: var(--accent-yellow); }
+    main { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
+    .tag-yellow { color: var(--accent-yellow); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px; display: inline-block; }
+    h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+    p.lead { color: var(--text-muted); margin-bottom: 36px; font-size: 1rem; }
+    .form-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 32px 24px; }
+    .form-group { margin-bottom: 22px; }
+    label { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: var(--text-white); }
+    input, select, textarea { width: 100%; background: #0a0a0a; border: 1px solid var(--border); color: #fff; padding: 12px 16px; border-radius: 8px; font-size: 0.95rem; font-family: inherit; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-yellow); box-shadow: 0 0 10px var(--yellow-glow); }
+    .btn-submit { width: 100%; background: var(--accent-yellow); color: #000; border: none; padding: 14px; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+    .btn-submit:hover { box-shadow: 0 0 20px var(--yellow-glow); }
+    footer { border-top: 1px solid var(--border); padding: 30px 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="glow-bg"></div>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">VLOGGERS <span class="brand-badge">PH</span></a>
+      <a href="index.html" class="back-link">← Return to Home</a>
+    </div>
+  </header>
+  <main>
+    <span class="tag-yellow">Editorial Submissions</span>
+    <h1>Submit a Story or Creator Pitch</h1>
+    <p class="lead">Got a scoop on creator news, an independent film project, or an inspiring creator journey? Pitch our editorial board below.</p>
+    
+    <div class="form-card">
+      <form action="#" method="POST">
+        <div class="form-group">
+          <label for="name">Your Name / Creator Handle</label>
+          <input type="text" id="name" placeholder="e.g., Alex Reyes" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="name@domain.com" required>
+        </div>
+        <div class="form-group">
+          <label for="category">Pitch Category</label>
+          <select id="category">
+            <option>Creator Spotlight & Interview</option>
+            <option>Film & Production Tech</option>
+            <option>Entertainment & Pop Culture</option>
+            <option>Community Event Coverage</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pitch">Story Summary / Headline</label>
+          <textarea id="pitch" rows="5" placeholder="Briefly describe what makes this story compelling..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Submit Editorial Pitch</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2026 Vloggers Philippines. Independent Creator, Film & Pop Culture Media.</p>
+  </footer>
+</body>
+</html>
