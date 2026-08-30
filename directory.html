@@ -231,16 +231,16 @@
       font-weight: 700;
     }
 
-    /* --- REAL INTERACTIVE PHILIPPINES DARK RADAR MAP --- */
+    /* --- REAL INTERACTIVE PHILIPPINES YELLOW/DARK RADAR MAP --- */
     .map-container {
-      background: #0d1117;
-      border: 1px solid var(--border);
+      background: #0a0a0a;
+      border: 1px solid var(--border-accent);
       border-radius: 16px;
       padding: 20px 16px;
       margin-bottom: 36px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px var(--yellow-glow);
     }
 
     .map-header {
@@ -286,14 +286,15 @@
       width: 100%;
       height: 420px;
       border-radius: 12px;
-      border: 1px solid #1f293d;
-      background: #06090e;
+      border: 1px solid #27272a;
+      background: #050505;
       z-index: 1;
     }
 
-    /* High-contrast dark styling for base tiles */
-    .dark-tiles {
-      filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
+    /* --- SPECIAL YELLOW MAP SHIFT FILTER --- */
+    /* Transforms grayscale tiles into Cyberpunk Gold/Yellow Lines on Black */
+    .yellow-map-tiles {
+      filter: invert(1) brightness(0.9) sepia(1) hue-rotate(5deg) saturate(9) contrast(1.5) !important;
     }
 
     /* Radar Beacon Custom Marker */
@@ -629,10 +630,11 @@
       scrollWheelZoom: false
     });
 
-    // 2. OpenStreetMap / ESRI Dark Base Layer (Zero API Keys Needed)
+    // 2. Base Tile Layer styled with Custom Yellow/Black Filter
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-      maxZoom: 16
+      attribution: 'Tiles &copy; Esri',
+      maxZoom: 16,
+      className: 'yellow-map-tiles'
     }).addTo(map);
 
     // 3. Helper function to create Animated Red Radar Marker Icon
