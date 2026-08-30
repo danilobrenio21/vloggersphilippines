@@ -129,6 +129,7 @@
       font-size: 0.82rem;
       white-space: nowrap;
       transition: all 0.3s ease;
+      display: inline-block;
     }
 
     .btn-action:hover, .btn-action:active {
@@ -146,7 +147,7 @@
       padding: 24px 16px 40px;
     }
 
-    /* Mobile Scrollable Categories */
+    /* Category Filter Bar */
     .filter-wrapper {
       position: relative;
       margin-bottom: 28px;
@@ -196,6 +197,10 @@
       overflow: hidden;
       margin-bottom: 36px;
       transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .hero-card:hover {
+      border-color: var(--border-accent);
     }
 
     .hero-img-box {
@@ -370,7 +375,7 @@
       font-size: 0.82rem;
     }
 
-    /* Tablet & Desktop Scaling (Desktop View preserved) */
+    /* Desktop Scaling */
     @media (min-width: 768px) {
       .nav-container {
         padding: 18px 24px;
@@ -427,11 +432,11 @@
         VLOGGERS <span class="brand-badge">PH</span>
       </a>
       <nav>
-        <a href="#creators">Creators</a>
-        <a href="#film">Film & TV</a>
-        <a href="#pop-culture">Pop Culture</a>
-        <a href="#tech">Tech</a>
-        <a href="article-template.html" class="btn-action">Submit Pitch</a>
+        <a href="creators.html">Creators</a>
+        <a href="film.html">Film & TV</a>
+        <a href="pop-culture.html">Pop Culture</a>
+        <a href="tech.html">Tech</a>
+        <a href="pitch.html" class="btn-action">Submit Pitch</a>
       </nav>
     </div>
   </header>
@@ -439,12 +444,12 @@
   <main>
     <div class="filter-wrapper">
       <div class="filter-bar">
-        <a href="#" class="filter-btn active">All Feed</a>
-        <a href="#" class="filter-btn">Influencer Culture</a>
-        <a href="#" class="filter-btn">Film & Production</a>
-        <a href="#" class="filter-btn">Interviews</a>
-        <a href="#" class="filter-btn">Pop Trends</a>
-        <a href="#" class="filter-btn">Gear Reviews</a>
+        <a href="index.html" class="filter-btn active">All Feed</a>
+        <a href="creators.html" class="filter-btn">Influencer Culture</a>
+        <a href="film.html" class="filter-btn">Film & Production</a>
+        <a href="creators.html" class="filter-btn">Interviews</a>
+        <a href="pop-culture.html" class="filter-btn">Pop Trends</a>
+        <a href="tech.html" class="filter-btn">Gear Reviews</a>
       </div>
     </div>
 
