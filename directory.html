@@ -287,11 +287,16 @@
       height: 420px;
       border-radius: 12px;
       border: 1px solid #1f293d;
-      background: #0a0e17;
+      background: #06090e;
       z-index: 1;
     }
 
-    /* Radar Beacon Custom Marker Styling */
+    /* High-contrast dark styling for base tiles */
+    .dark-tiles {
+      filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
+    }
+
+    /* Radar Beacon Custom Marker */
     .radar-marker {
       position: relative;
       width: 24px;
@@ -621,14 +626,13 @@
       minZoom: 5,
       maxZoom: 12,
       zoomControl: true,
-      scrollWheelZoom: false // Prevent accidental scrolling on mobile
+      scrollWheelZoom: false
     });
 
-    // 2. High-Tech Dark Matter Cyber Tile Layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-      subdomains: 'abcd',
-      maxZoom: 19
+    // 2. OpenStreetMap / ESRI Dark Base Layer (Zero API Keys Needed)
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+      maxZoom: 16
     }).addTo(map);
 
     // 3. Helper function to create Animated Red Radar Marker Icon
@@ -647,7 +651,7 @@
       });
     }
 
-    // 4. Real Coordinates for Major Philippine Creator Hubs
+    // 4. Coordinates for Major Philippine Regional Creative Hubs
     const hubs = [
       { name: "Metro Manila Hub", coords: [14.5995, 120.9842], count: "2,400+ Active Creators", niche: "Vlog, Entertainment & Tech" },
       { name: "Cebu City Hub", coords: [10.3157, 123.8854], count: "680+ Active Creators", niche: "Travel, Gaming & Lifestyle" },
@@ -658,7 +662,7 @@
       { name: "Pampanga & Central Luzon", coords: [15.0794, 120.6200], count: "310+ Active Creators", niche: "Food & Lifestyle" }
     ];
 
-    // Plot Radar Markers onto the Real Map
+    // Plot Radar Markers onto the Map
     hubs.forEach(hub => {
       const marker = L.marker(hub.coords, { icon: createRadarIcon() }).addTo(map);
       marker.bindPopup(`
