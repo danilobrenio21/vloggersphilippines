@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creators & Culture | Vloggers Philippines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card-bg: #141414;
+      --accent-yellow: #facc15;
+      --yellow-glow: rgba(250, 204, 21, 0.25);
+      --text-white: #ffffff;
+      --text-muted: #a1a1aa;
+      --border: #27272a;
+      --border-accent: rgba(250, 204, 21, 0.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text-white); line-height: 1.6; }
+    .glow-bg { position: fixed; top: -150px; right: -100px; width: 350px; height: 350px; background: radial-gradient(circle, var(--yellow-glow) 0%, rgba(0,0,0,0) 70%); z-index: 0; pointer-events: none; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-container { max-width: 1240px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text-white); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .brand-badge { background: var(--accent-yellow); color: #000; padding: 2px 7px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; }
+    nav { display: flex; gap: 16px; align-items: center; }
+    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; }
+    nav a:hover, nav a.active { color: var(--accent-yellow); }
+    .btn-action { border: 1.5px solid var(--accent-yellow); color: var(--accent-yellow); padding: 6px 14px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 0.82rem; }
+    main { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 36px 20px 60px; }
+    .tag-yellow { color: var(--accent-yellow); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; display: inline-block; }
+    h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 8px; }
+    p.subtitle { color: var(--text-muted); margin-bottom: 36px; max-width: 700px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: 0.2s; }
+    .card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+    .card-thumb { height: 180px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; border-bottom: 1px solid var(--border); }
+    .card-body { padding: 20px; }
+    .card h3 { font-size: 1.2rem; margin: 8px 0; }
+    .card h3 a { color: #fff; text-decoration: none; }
+    .card h3 a:hover { color: var(--accent-yellow); }
+    .card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 14px; }
+    footer { border-top: 1px solid var(--border); padding: 30px 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="glow-bg"></div>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">VLOGGERS <span class="brand-badge">PH</span></a>
+      <nav>
+        <a href="creators.html" class="active">Creators</a>
+        <a href="film.html">Film & TV</a>
+        <a href="pop-culture.html">Pop Culture</a>
+        <a href="tech.html">Tech</a>
+        <a href="pitch.html" class="btn-action">Submit Pitch</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <span class="tag-yellow">Category Archive</span>
+    <h1>Creator Economy & Profiles</h1>
+    <p class="subtitle">Exploring the builders, vloggers, and digital narrative creators driving modern Filipino media.</p>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="card-thumb">[ Creator Profile 1 ]</div>
+        <div class="card-body">
+          <span class="tag-yellow">Spotlight</span>
+          <h3><a href="article-template.html">The Blueprint: Transitioning from Solo Vlogger to Media Entity</a></h3>
+          <p>Key business insights on content production, operations, and building an engaged fanbase.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb">[ Creator Profile 2 ]</div>
+        <div class="card-body">
+          <span class="tag-yellow">Interview</span>
+          <h3><a href="article-template.html">Grassroots Community Meetups: Building Offline Connection</a></h3>
+          <p>Why face-to-face creative networking is shaping the next wave of viral collaborations.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb">[ Creator Profile 3 ]</div>
+        <div class="card-body">
+          <span class="tag-yellow">Monetization</span>
+          <h3><a href="article-template.html">Brand Collaborations Beyond Sponsored Posts</a></h3>
+          <p>How video creators are designing custom media assets and long-term brand integrations.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2026 Vloggers Philippines. Independent Creator, Film & Pop Culture Media.</p>
+  </footer>
+</body>
+</html>
