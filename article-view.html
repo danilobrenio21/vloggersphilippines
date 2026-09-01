@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Story | Vloggers Philippines</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card-bg: #141414;
+      --accent-yellow: #facc15;
+      --yellow-glow: rgba(250, 204, 21, 0.25);
+      --text-white: #ffffff;
+      --text-muted: #a1a1aa;
+      --text-body: #e4e4e7;
+      --border: #27272a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text-body); line-height: 1.8; }
+    
+    header { background: rgba(10, 10, 10, 0.95); border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+    .nav-box { max-width: 820px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { color: #fff; font-weight: 800; text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; }
+    .brand span { background: var(--accent-yellow); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; margin-left: 4px; font-weight: 800; }
+    
+    .article-wrap { max-width: 820px; margin: 0 auto; padding: 40px 20px 80px; }
+    .tag-yellow { color: var(--accent-yellow); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+    h1 { font-size: 2.2rem; color: #fff; line-height: 1.25; margin: 12px 0 16px; font-weight: 800; }
+    .meta { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .cover-img { width: 100%; max-height: 460px; object-fit: cover; border-radius: 12px; margin-bottom: 30px; display: none; border: 1px solid var(--border); }
+    .story-body { font-size: 1.1rem; color: #d4d4d8; white-space: pre-line; line-height: 1.85; }
+
+    footer { border-top: 1px solid var(--border); background: #080808; padding: 36px 20px; text-align: center; color: var(--text-muted); font-size: 0.82rem; }
+    
+    @media (min-width: 768px) {
+      h1 { font-size: 2.7rem; }
+      .article-wrap { padding: 50px 20px 100px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-box">
+      <a href="index.html" class="brand">VLOGGERS <span>PH</span></a>
+      <a href="index.html" style="color: var(--accent-yellow); text-decoration: none; font-size: 0.88rem; font-weight: 600;">← Back to Stories</a>
+    </div>
+  </header>
+
+  <article class="article-wrap">
+    <span id="postCategory" class="tag-yellow">Category</span>
+    <h1 id="postTitle">Loading Story...</h1>
+    <div id="postMeta" class="meta">By Editorial Desk</div>
+    <img id="postCover" class="cover-img" src="" alt="Article Cover Image">
+    <div id="postBody" class="story-body"></div>
+  </article>
+
+  <footer>
+    <p>&copy; 2026 <strong>Vloggers Philippines</strong>. Independent Creator, Film & Pop Culture Media.</p>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co";
+    const SUPABASE_KEY = "YOUR_ANON_PUBLIC_KEY";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    async function loadStory() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      
+      if (!id) {
+        document.getElementById('postTitle').innerText = "No article selected.";
+        return;
+      }
+
+      const { data: story, error } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error || !story) {
+        document.getElementById('postTitle').innerText = "Story Not Found";
+        return;
+      }
+
+      document.getElementById('postTitle').innerText = story.title;
+      document.getElementById('postCategory').innerText = story.category;
+      
+      const formattedDate = new Date(story.created_at).toLocaleDateString('en-US', { 
+        month: 'long', 
+        day: 'numeric', 
+        year: 'numeric' 
+      });
+      document.getElementById('postMeta').innerText = `By ${story.author} • Published on ${formattedDate}`;
+      document.getElementById('postBody').innerText = story.body;
+      
+      if (story.cover_image) {
+        const img = document.getElementById('postCover');
+        img.src = story.cover_image;
+        img.style.display = 'block';
+      }
+    }
+
+    loadStory();
+  </script>
+</body>
+</html>
