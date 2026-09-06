@@ -1,138 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Top 100 Content Creators in the Philippines | Vloggers Philippines</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Top 100 Content Creators | Vloggers Philippines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #e11d48;
-      --primary-hover: #be123c;
-      --border: #334155;
-      --accent: #38bdf8;
+      --bg: #0a0a0a;
+      --card-bg: #141414;
+      --card-hover: #1c1c1c;
+      --accent-yellow: #facc15;
+      --yellow-glow: rgba(250, 204, 21, 0.25);
+      --text-white: #ffffff;
+      --text-muted: #a1a1aa;
+      --border: #27272a;
+      --border-accent: rgba(250, 204, 21, 0.4);
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      padding-bottom: 60px;
-    }
-    header {
-      background-color: #0b1120;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-    .logo span {
-      color: var(--primary);
-    }
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-    nav a:hover, nav a.active {
-      color: var(--text);
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-    .page-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .page-subtitle {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      margin-bottom: 30px;
-    }
-    .toolbar {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg); color: var(--text-white); line-height: 1.6; overflow-x: hidden; width: 100%; }
+    .glow-bg { position: fixed; top: -150px; right: -100px; width: 350px; height: 350px; background: radial-gradient(circle, var(--yellow-glow) 0%, rgba(0,0,0,0) 70%); z-index: 0; pointer-events: none; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-container { max-width: 1240px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text-white); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .brand-badge { background: var(--accent-yellow); color: #000; padding: 2px 7px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; }
+    nav { display: flex; gap: 16px; align-items: center; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; white-space: nowrap; transition: color 0.2s ease; }
+    nav a:hover, nav a.active { color: var(--accent-yellow); }
+    .btn-action { border: 1.5px solid var(--accent-yellow); color: var(--accent-yellow); padding: 6px 14px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 0.82rem; white-space: nowrap; }
+    .btn-action:hover { background: var(--accent-yellow); color: #000; box-shadow: 0 0 12px var(--yellow-glow); }
+    main { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 24px 16px 40px; }
+    .tag-yellow { color: var(--accent-yellow); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: inline-block; }
+    h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+    p.subtitle { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
+
+    /* Search & Filter Bar */
+    .filter-wrapper { margin-bottom: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
     .search-input {
       flex: 1;
-      min-width: 280px;
-      padding: 12px 16px;
-      background-color: var(--card-bg);
+      min-width: 260px;
+      padding: 10px 16px;
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      color: var(--text);
-      font-size: 1rem;
+      color: var(--text-white);
+      font-size: 0.9rem;
       outline: none;
       transition: border-color 0.2s;
     }
-    .search-input:focus {
-      border-color: var(--accent);
-    }
+    .search-input:focus { border-color: var(--accent-yellow); }
     .btn-reset {
-      padding: 12px 20px;
-      background-color: var(--card-bg);
-      color: var(--text);
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.2s;
-    }
-    .btn-reset:hover {
-      background-color: var(--border);
-    }
-    .stats-bar {
-      margin-bottom: 16px;
-      font-size: 0.9rem;
       color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .table-responsive {
+    .btn-reset:hover { background: var(--border); color: var(--text-white); }
+    .results-count { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; }
+
+    /* Directory Table */
+    .table-container {
       width: 100%;
       overflow-x: auto;
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-    }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
     thead th {
-      background-color: #0b1120;
+      background: #0f0f0f;
       padding: 14px 16px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -140,93 +86,84 @@
       border-bottom: 1px solid var(--border);
     }
     tbody td {
-      padding: 16px;
+      padding: 14px 16px;
       border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
       vertical-align: top;
-      font-size: 0.95rem;
     }
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
-    tbody tr:hover {
-      background-color: rgba(255, 255, 255, 0.02);
-    }
-    .rank-badge {
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-    .creator-name {
-      font-weight: 700;
-      color: var(--text);
-    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background-color: var(--card-hover); }
+    .rank-num { font-weight: 700; color: var(--text-muted); }
+    .creator-name { font-weight: 700; color: var(--text-white); }
     .reach-badge {
       display: inline-block;
-      padding: 4px 8px;
-      background: rgba(225, 29, 72, 0.15);
-      color: var(--primary);
-      border-radius: 6px;
+      background: rgba(250, 204, 21, 0.12);
+      color: var(--accent-yellow);
+      border: 1px solid rgba(250, 204, 21, 0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
     }
-    .location-tag {
-      color: var(--accent);
-      font-size: 0.9rem;
-    }
-    .focus-text {
-      color: #cbd5e1;
-      line-height: 1.4;
-    }
-    #noResults {
-      display: none;
-      text-align: center;
-      padding: 40px;
-      color: var(--text-muted);
+    .creator-location { color: var(--text-muted); font-size: 0.84rem; }
+    .creator-focus { color: #d4d4d8; font-size: 0.85rem; line-height: 1.4; }
+    #noResults { display: none; text-align: center; padding: 40px; color: var(--text-muted); font-size: 0.9rem; }
+
+    footer { border-top: 1px solid var(--border); background: #080808; padding: 40px 20px; margin-top: 50px; text-align: center; color: var(--text-muted); font-size: 0.82rem; }
+    @media (min-width: 768px) {
+      .nav-container { padding: 18px 24px; }
+      main { padding: 40px 24px; }
+      h1 { font-size: 2.4rem; }
     }
   </style>
 </head>
 <body>
-
+  <div class="glow-bg"></div>
   <header>
     <div class="nav-container">
-      <a href="index.html" class="logo">VLOGGERS <span>PH</span></a>
+      <a href="index.html" class="brand">VLOGGERS <span class="brand-badge">PH</span></a>
       <nav>
-        <a href="index.html">Home</a>
         <a href="directory.html">Directory</a>
-        <a href="creators.html" class="active">Top 100 Creators</a>
-        <a href="film.html">Film</a>
-        <a href="tech.html">Tech</a>
+        <a href="creators.html" class="active">Creators</a>
+        <a href="film.html">Film & TV</a>
         <a href="pop-culture.html">Pop Culture</a>
+        <a href="tech.html">Tech</a>
+        <a href="pitch.html" class="btn-action">Submit Pitch</a>
       </nav>
     </div>
   </header>
+  <main>
+    <span class="tag-yellow">Directory Index</span>
+    <h1>Top 100 Content Creators</h1>
+    <p class="subtitle">Exploring the reach, creative niches, and locations powering the Filipino creator economy.</p>
 
-  <main class="container">
-    <h1 class="page-title">Top 100 Content Creators in the Philippines</h1>
-    <p class="page-subtitle">A directory tracking the digital reach, creative categories, and regional bases of the country's top digital voices.</p>
-
-    <div class="toolbar">
-      <input type="text" id="creatorSearch" class="search-input" placeholder="Search by name, location, or content niche...">
+    <div class="filter-wrapper">
+      <input type="text" id="creatorSearch" class="search-input" placeholder="Search by name, location, or niche (e.g., Tech, Cavite, Food)...">
       <button id="resetBtn" class="btn-reset">Reset</button>
     </div>
 
-    <div class="stats-bar" id="resultCount">Showing 100 creators</div>
+    <div class="results-count" id="resultsCount">Showing 100 creators</div>
 
-    <div class="table-responsive">
+    <div class="table-container">
       <table>
         <thead>
           <tr>
-            <th style="width: 60px;">#</th>
-            <th style="width: 220px;">Creator</th>
-            <th style="width: 130px;">Reach</th>
-            <th style="width: 180px;">Location</th>
+            <th style="width: 50px;">#</th>
+            <th style="width: 220px;">Creator / Name</th>
+            <th style="width: 120px;">Est. Reach</th>
+            <th style="width: 170px;">Location</th>
             <th>About Their Content</th>
           </tr>
         </thead>
         <tbody id="creatorList"></tbody>
       </table>
-      <div id="noResults">No content creators match your search.</div>
+      <div id="noResults">No creators found matching your search.</div>
     </div>
   </main>
+  <footer>
+    <p>&copy; 2026 <strong>Vloggers Philippines</strong>. Independent Creator, Film & Pop Culture Media.</p>
+  </footer>
 
   <script>
     const creators = [
@@ -335,27 +272,27 @@
     const tbody = document.getElementById("creatorList");
     const searchInput = document.getElementById("creatorSearch");
     const resetBtn = document.getElementById("resetBtn");
-    const resultCount = document.getElementById("resultCount");
+    const resultsCount = document.getElementById("resultsCount");
     const noResults = document.getElementById("noResults");
 
     function render(list) {
       if (list.length === 0) {
         tbody.innerHTML = "";
         noResults.style.display = "block";
-        resultCount.textContent = "Showing 0 creators";
+        resultsCount.textContent = "Showing 0 creators";
         return;
       }
 
       noResults.style.display = "none";
-      resultCount.textContent = `Showing ${list.length} creator${list.length > 1 ? "s" : ""}`;
+      resultsCount.textContent = `Showing ${list.length} creator${list.length > 1 ? "s" : ""}`;
 
       tbody.innerHTML = list.map(c => `
         <tr>
-          <td><span class="rank-badge">${c.rank}</span></td>
+          <td><span class="rank-num">${c.rank}</span></td>
           <td><span class="creator-name">${c.name}</span></td>
           <td><span class="reach-badge">${c.reach}</span></td>
-          <td><span class="location-tag">${c.location}</span></td>
-          <td><span class="focus-text">${c.focus}</span></td>
+          <td><span class="creator-location">${c.location}</span></td>
+          <td><span class="creator-focus">${c.focus}</span></td>
         </tr>
       `).join("");
     }
