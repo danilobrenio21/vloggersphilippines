@@ -1,108 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Creators & Culture | Vloggers Philippines</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top 100 Content Creators in the Philippines | Vloggers Philippines</title>
   <style>
     :root {
-      --bg: #0a0a0a;
-      --card-bg: #141414;
-      --card-hover: #1c1c1c;
-      --accent-yellow: #facc15;
-      --yellow-glow: rgba(250, 204, 21, 0.25);
-      --text-white: #ffffff;
-      --text-muted: #a1a1aa;
-      --border: #27272a;
-      --border-accent: rgba(250, 204, 21, 0.4);
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #e11d48;
+      --primary-hover: #be123c;
+      --border: #334155;
+      --accent: #38bdf8;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text-white); line-height: 1.6; overflow-x: hidden; width: 100%; }
-    .glow-bg { position: fixed; top: -150px; right: -100px; width: 350px; height: 350px; background: radial-gradient(circle, var(--yellow-glow) 0%, rgba(0,0,0,0) 70%); z-index: 0; pointer-events: none; }
-    header { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 10, 0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
-    .nav-container { max-width: 1240px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .brand { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text-white); text-decoration: none; display: flex; align-items: center; gap: 6px; }
-    .brand-badge { background: var(--accent-yellow); color: #000; padding: 2px 7px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; }
-    nav { display: flex; gap: 16px; align-items: center; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-    nav::-webkit-scrollbar { display: none; }
-    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; white-space: nowrap; transition: color 0.2s ease; }
-    nav a:hover, nav a.active { color: var(--accent-yellow); }
-    .btn-action { border: 1.5px solid var(--accent-yellow); color: var(--accent-yellow); padding: 6px 14px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 0.82rem; white-space: nowrap; }
-    .btn-action:hover { background: var(--accent-yellow); color: #000; box-shadow: 0 0 12px var(--yellow-glow); }
-    main { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 24px 16px 40px; }
-    .tag-yellow { color: var(--accent-yellow); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: inline-block; }
-    h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
-    p.subtitle { color: var(--text-muted); margin-bottom: 28px; font-size: 0.95rem; }
-    .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.2s ease; }
-    .card:hover { background: var(--card-hover); border-color: var(--border-accent); transform: translateY(-3px); }
-    .card-thumb { width: 100%; height: 170px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; border-bottom: 1px solid var(--border); }
-    .card-body { padding: 18px; }
-    .card h3 { font-size: 1.15rem; margin: 6px 0 10px 0; }
-    .card h3 a { color: #fff; text-decoration: none; }
-    .card h3 a:hover { color: var(--accent-yellow); }
-    .card p { color: var(--text-muted); font-size: 0.86rem; margin-bottom: 12px; }
-    footer { border-top: 1px solid var(--border); background: #080808; padding: 40px 20px; margin-top: 50px; text-align: center; color: var(--text-muted); font-size: 0.82rem; }
-    @media (min-width: 768px) {
-      .nav-container { padding: 18px 24px; }
-      main { padding: 40px 24px; }
-      h1 { font-size: 2.4rem; }
-      .grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
-      .card-thumb { height: 190px; }
-      .card-body { padding: 22px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+    header {
+      background-color: #0b1120;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      color: var(--primary);
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    nav a:hover, nav a.active {
+      color: var(--text);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .page-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .page-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 30px;
+    }
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 280px;
+      padding: 12px 16px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+    .btn-reset {
+      padding: 12px 20px;
+      background-color: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .btn-reset:hover {
+      background-color: var(--border);
+    }
+    .stats-bar {
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    thead th {
+      background-color: #0b1120;
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    tbody td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      font-size: 0.95rem;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+    .rank-badge {
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .creator-name {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .reach-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      background: rgba(225, 29, 72, 0.15);
+      color: var(--primary);
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .location-tag {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+    .focus-text {
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+    #noResults {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
-  <div class="glow-bg"></div>
+
   <header>
     <div class="nav-container">
-      <a href="index.html" class="brand">VLOGGERS <span class="brand-badge">PH</span></a>
+      <a href="index.html" class="logo">VLOGGERS <span>PH</span></a>
       <nav>
-        <a href="creators.html" class="active">Creators</a>
-        <a href="film.html">Film & TV</a>
-        <a href="pop-culture.html">Pop Culture</a>
+        <a href="index.html">Home</a>
+        <a href="directory.html">Directory</a>
+        <a href="creators.html" class="active">Top 100 Creators</a>
+        <a href="film.html">Film</a>
         <a href="tech.html">Tech</a>
-        <a href="pitch.html" class="btn-action">Submit Pitch</a>
+        <a href="pop-culture.html">Pop Culture</a>
       </nav>
     </div>
   </header>
-  <main>
-    <span class="tag-yellow">Category Archive</span>
-    <h1>Creator Economy & Profiles</h1>
-    <p class="subtitle">Exploring the builders, vloggers, and digital narrative creators driving modern Filipino media.</p>
-    <div class="grid">
-      <div class="card">
-        <div class="card-thumb">[ Creator Profile 1 ]</div>
-        <div class="card-body">
-          <span class="tag-yellow">Spotlight</span>
-          <h3><a href="article-template.html">The Blueprint: Transitioning from Solo Vlogger to Media Entity</a></h3>
-          <p>Key business insights on content production, operations, and building an engaged fanbase.</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-thumb">[ Creator Profile 2 ]</div>
-        <div class="card-body">
-          <span class="tag-yellow">Interview</span>
-          <h3><a href="article-template.html">Grassroots Community Meetups: Building Offline Connection</a></h3>
-          <p>Why face-to-face creative networking is shaping the next wave of viral collaborations.</p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-thumb">[ Creator Profile 3 ]</div>
-        <div class="card-body">
-          <span class="tag-yellow">Monetization</span>
-          <h3><a href="article-template.html">Brand Collaborations Beyond Sponsored Posts</a></h3>
-          <p>How video creators are designing custom media assets and long-term brand integrations.</p>
-        </div>
-      </div>
+
+  <main class="container">
+    <h1 class="page-title">Top 100 Content Creators in the Philippines</h1>
+    <p class="page-subtitle">A directory tracking the digital reach, creative categories, and regional bases of the country's top digital voices.</p>
+
+    <div class="toolbar">
+      <input type="text" id="creatorSearch" class="search-input" placeholder="Search by name, location, or content niche...">
+      <button id="resetBtn" class="btn-reset">Reset</button>
+    </div>
+
+    <div class="stats-bar" id="resultCount">Showing 100 creators</div>
+
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 60px;">#</th>
+            <th style="width: 220px;">Creator</th>
+            <th style="width: 130px;">Reach</th>
+            <th style="width: 180px;">Location</th>
+            <th>About Their Content</th>
+          </tr>
+        </thead>
+        <tbody id="creatorList"></tbody>
+      </table>
+      <div id="noResults">No content creators match your search.</div>
     </div>
   </main>
-  <footer>
-    <p>&copy; 2026 Vloggers Philippines. Independent Creator, Film & Pop Culture Media.</p>
-  </footer>
+
+  <script>
+    const creators = [
+      { rank: 1, name: "Niana Guerrero", reach: "85M+", location: "Quezon City", focus: "Viral dance choreography, TikTok trends, and sibling lifestyle content." },
+      { rank: 2, name: "Ivana Alawi", reach: "48M+", location: "Taguig / Parañaque", focus: "Relatable comedy, comedic pranks, family vlogs, and charitable giveaways." },
+      { rank: 3, name: "Vice Ganda", reach: "45M+", location: "Quezon City", focus: "Stand-up comedy, variety vlogs, celebrity interviews, and lifestyle tours." },
+      { rank: 4, name: "Doc Willie Ong", reach: "42M+", location: "Pasay / Manila", focus: "Public health education, preventive medicine, and wellness guides." },
+      { rank: 5, name: "Andrea Brillantes", reach: "40M+", location: "Metro Manila", focus: "Beauty routines, high-energy TikTok trends, fashion, and acting BTS." },
+      { rank: 6, name: "Ranz Kyle", reach: "38M+", location: "Quezon City", focus: "High-production dance choreography, automotive builds, and travel vlogs." },
+      { rank: 7, name: "Alex Gonzaga", reach: "35M+", location: "Taytay, Rizal", focus: "High-tempo parody vlogs, family situational comedy, and celebrity skits." },
+      { rank: 8, name: "Zeinab Harake", reach: "34M+", location: "Cavite / Manila", focus: "Personal lifestyle, motherhood, glamorous photo shoots, and challenge vlogs." },
+      { rank: 9, name: "Cong TV (Lincoln Velasquez)", reach: "32M+", location: "Cavite", focus: "Grounded situational skits, Team Payaman vlogs, gaming, and parody music." },
+      { rank: 10, name: "Donnalyn Bartolome", reach: "30M+", location: "Metro Manila", focus: "High-budget challenge productions, concept vlogs, and music videos." },
+      { rank: 11, name: "Yanyan De Jesus", reach: "28M+", location: "Taguig, Metro Manila", focus: "Expressive TikTok dance performances, lip-syncs, and character comedy." },
+      { rank: 12, name: "Toni Fowler (Toro Family)", reach: "26M+", location: "Quezon City", focus: "Unfiltered ensemble reality-style vlogs, music videos, and family life." },
+      { rank: 13, name: "Viy Cortez-Velasquez", reach: "25M+", location: "Cavite", focus: "Family lifestyle, entrepreneurship (VIYLine), and candid humor." },
+      { rank: 14, name: "Whamos Cruz", reach: "24M+", location: "Quezon City", focus: "Street antics, dance challenges, and domestic comedy sketches." },
+      { rank: 15, name: "Mona Gonzales", reach: "22M+", location: "Manila", focus: "Vocal covers, P-Pop tracks, anime song performances, and lifestyle clips." },
+      { rank: 16, name: "Kathryn Bernardo", reach: "22M+", location: "Quezon City", focus: "High-fashion editorial work, travel diaries, brand milestones, and lifestyle." },
+      { rank: 17, name: "Anne Curtis", reach: "22M+", location: "Makati, Metro Manila", focus: "Marathon training, high fashion, mother-daughter moments, and television BTS." },
+      { rank: 18, name: "Heart Evangelista", reach: "20M+", location: "Makati / Sorsogon", focus: "Global couture fashion week diaries, luxury styling, and painting." },
+      { rank: 19, name: "Grae Cabase", reach: "20M+", location: "Metro Manila", focus: "Relatable lifestyle vlogs, comedy, and Gen-Z viral trends." },
+      { rank: 20, name: "Queenay Mercado", reach: "19M+", location: "Batangas", focus: "Batangueña dialect comedy, comedic family observations, and beauty." },
+      { rank: 21, name: "Geo Ong", reach: "18M+", location: "Puerto Princesa, Palawan", focus: "Raw rural life, motorcycling expeditions, music videos, and spearfishing." },
+      { rank: 22, name: "Spencer Serafica", reach: "18M+", location: "Manila", focus: "Pinoy pop-culture satire and slice-of-life comedy skits." },
+      { rank: 23, name: "Sanya Lopez", reach: "17M+", location: "Quezon City", focus: "Playful dance trends, fitness routines, and television set diaries." },
+      { rank: 24, name: "Jillian Ward", reach: "16M+", location: "Metro Manila", focus: "Young adult lifestyle, beauty transformations, and on-set drama clips." },
+      { rank: 25, name: "Mika Salamanca", reach: "16M+", location: "Manila", focus: "Youth beauty routines, lifestyle aesthetics, and spontaneous travel vlogs." },
+      { rank: 26, name: "ChooxTV (Edgar Dumali)", reach: "16M+", location: "General Santos City", focus: "Mobile Legends comedy commentary and voiceover game streaming." },
+      { rank: 27, name: "Unbox Diaries (Vince Vandorpe)", reach: "15M+", location: "Metro Manila", focus: "Smartphone reviews, gadget stress tests, and consumer tech buying guides." },
+      { rank: 28, name: "Ninong Ry (Ryan Reyes)", reach: "14M+", location: "Malabon", focus: "Unfiltered culinary walkthroughs, street-food elevated cooking, and dry banter." },
+      { rank: 29, name: "Small Laude", reach: "14M+", location: "Greenhills, San Juan", focus: "Wealthy matriarch lifestyle, comedic luxury shopping, and family celebrations." },
+      { rank: 30, name: "Esnyr Ranollo", reach: "14M+", location: "Davao / Manila", focus: "Nostalgic Filipino high school classroom character comedy." },
+      { rank: 31, name: "Francine Diaz", reach: "13M+", location: "Cavite / Manila", focus: "Wholesome celebrity lifestyle, food challenges, and travel content." },
+      { rank: 32, name: "Arshie Larga", reach: "13M+", location: "Marinduque", focus: "Practical pharmacy advice, medicine education, and community medical charity." },
+      { rank: 33, name: "Junnie Boy (Marlon Velasquez)", reach: "13M+", location: "Cavite", focus: "Domestic prank videos, automotive builds, and Team Payaman comedy." },
+      { rank: 34, name: "Alodia Gosiengfiao", reach: "13M+", location: "Quezon City", focus: "High-tier cosplay, gaming streams, tech setups, and geek culture." },
+      { rank: 35, name: "Akosi Dogie (Christian San Jose)", reach: "12M+", location: "Cavite", focus: "Competitive esports commentary, dog breeding, and luxury watch collecting." },
+      { rank: 36, name: "Abi Marquez (Lumpia Queen)", reach: "12M+", location: "Laguna / Manila", focus: "Creative fried lumpia variations, culinary hacks, and Filipino comfort food." },
+      { rank: 37, name: "Boss Keng", reach: "12M+", location: "Cavite", focus: "Team Payaman collaborative pranks, relationship vlogs, and custom motorcycles." },
+      { rank: 38, name: "Carlyn Ocampo", reach: "12M+", location: "Cavite", focus: "P-Pop performance clips, parenting updates, and dance trends." },
+      { rank: 39, name: "Wil Dasovich", reach: "11M+", location: "Makati, Metro Manila", focus: "Cinematic travel documentaries, adventure filmmaking, and podcast discussions." },
+      { rank: 40, name: "Macoy Dubs (Mark Averilla)", reach: "11M+", location: "Quezon City", focus: "Corporate satire (Auntie Julie), office humor, and sociopolitical commentary." },
+      { rank: 41, name: "Davao Conyo (Phillip Te)", reach: "10M+", location: "Davao City", focus: "Dialect-dubbed pop culture clips and regional situational humor." },
+      { rank: 42, name: "Erwan Heussaff / FEATR", reach: "10M+", location: "Makati, Metro Manila", focus: "Deep-dive culinary heritage documentaries and regional food exploration." },
+      { rank: 43, name: "Kim Chiu", reach: "14M+", location: "Quezon City", focus: "High-energy workout vlogs, dance workouts, and variety show BTS." },
+      { rank: 44, name: "Liza Soberano", reach: "18M+", location: "Manila / Los Angeles", focus: "Global entertainment projects, fashion editorials, and arts advocacy." },
+      { rank: 45, name: "Inka Magnaye", reach: "9M+", location: "Metro Manila", focus: "Professional voiceover demos, vocal health, and body positivity." },
+      { rank: 46, name: "Chef RV Manabat", reach: "9M+", location: "Biñan, Laguna", focus: "Commercial baking tutorials, traditional dessert recipes, and culinary history." },
+      { rank: 47, name: "Michelle Dy", reach: "9M+", location: "La Union / Manila", focus: "Drag and glam makeup tutorials, beauty reviews, and lifestyle vlogs." },
+      { rank: 48, name: "Steven Bansil", reach: "9M+", location: "Quezon City", focus: "Satirical Filipino call-center employee sketches and office parody." },
+      { rank: 49, name: "Rei Germar", reach: "8M+", location: "Pasig, Metro Manila", focus: "Aesthetic daily routine vlogs, fashion styling, and travel lookbooks." },
+      { rank: 50, name: "Sachzna Laparan", reach: "10M+", location: "Pampanga / Manila", focus: "Glamour modeling, personal life updates, and musical content." },
+      { rank: 51, name: "Basel Manadil (Hungry Syrian)", reach: "8M+", location: "Pampanga / Manila", focus: "Filipino humanitarian aid missions, community uplift, and daily living." },
+      { rank: 52, name: "Mary Bautista", reach: "7M+", location: "Antipolo, Rizal", focus: "Clean, minimalist gadget reviews and long-term phone test evaluations." },
+      { rank: 53, name: "Kuya Kim Atienza", reach: "8M+", location: "Manila", focus: "Science trivia, animal preservation, and cycling journeys." },
+      { rank: 54, name: "Kyline Alcantara", reach: "8M+", location: "Metro Manila", focus: "Actress lifestyle, OOTD fashion reels, and musical performance shorts." },
+      { rank: 55, name: "Vien Iligan-Velasquez", reach: "8M+", location: "Cavite", focus: "Motherhood, cooking family meals on a budget, and Team Payaman antics." },
+      { rank: 56, name: "Toni Sia", reach: "7M+", location: "Quezon City", focus: "Plus-size fashion lookbooks, makeup testing, and international shopping hauls." },
+      { rank: 57, name: "PaoLUL", reach: "7M+", location: "Metro Manila", focus: "Filipino internet meme reviews, dark-satirical critiques, and pop culture analysis." },
+      { rank: 58, name: "Baste & Yow", reach: "7M+", location: "Cavite", focus: "Slapstick sketches, car drift content, and prank dynamics within Team Payaman." },
+      { rank: 59, name: "Anne Clutz", reach: "6M+", location: "Cavite", focus: "Everyday relatable beauty, budget cosmetic testing, and family vlogs." },
+      { rank: 60, name: "Judy Ann Santos (Kitchen)", reach: "6M+", location: "Alabang, Muntinlupa", focus: "Homestyle gourmet recipes, family dinner preparation, and kitchen wisdom." },
+      { rank: 61, name: "Kyle Jennermann (BecomingFilipino)", reach: "6M+", location: "Cagayan de Oro", focus: "Regional culture integration, province travel, and appreciation for Filipino customs." },
+      { rank: 62, name: "Lyqa Maravilla (Team Lyqa)", reach: "6M+", location: "Quezon City", focus: "Civil service exam prep, study hacks, math logic, and grammar lessons." },
+      { rank: 63, name: "Nico Bolzico", reach: "6M+", location: "Makati, Metro Manila", focus: "Deadpan parenting humor, Bullied Husbands Club sketches, and agriculture." },
+      { rank: 64, name: "Almoranas Boy / Mentos", reach: "6M+", location: "Cavite", focus: "High-volume slapstick, street pranks, and squad comedy vlogs." },
+      { rank: 65, name: "Dudut", reach: "6M+", location: "Cavite", focus: "Daily reality vlogs, food adventures, and self-deprecating Team Payaman humor." },
+      { rank: 66, name: "Kryz Uy", reach: "5M+", location: "Cebu City", focus: "Cebuano family life, minimalist interior design, and parenting reflection vlogs." },
+      { rank: 67, name: "Slater Young", reach: "5M+", location: "Cebu City", focus: "Civil engineering walkthroughs, home building advice, and smart living design." },
+      { rank: 68, name: "Mimiyuuuh", reach: "8M+", location: "Quezon City", focus: "Eccentric viral dance skits, designer unboxings, and relatable voiceover comedy." },
+      { rank: 69, name: "Barbie Imperial", reach: "8M+", location: "Quezon City", focus: "Casual life updates, beauty shoots, and television drama BTS." },
+      { rank: 70, name: "Sofia Andres", reach: "10M+", location: "Taguig, Metro Manila", focus: "High-end parenting aesthetics, fashion collabs, and lifestyle portraits." },
+      { rank: 71, name: "Angel Locsin", reach: "9M+", location: "Taguig, Metro Manila", focus: "Humanitarian disaster relief missions, civic causes, and private life." },
+      { rank: 72, name: "Yassi Pressman", reach: "10M+", location: "Metro Manila", focus: "High-intensity dance workouts, action stunts, and sustainable lifestyle projects." },
+      { rank: 73, name: "Maja Salvador", reach: "10M+", location: "Metro Manila", focus: "Motherhood chronicles, high-energy dance reels, and stage performances." },
+      { rank: 74, name: "Sarah Lahbati", reach: "8M+", location: "Makati / Cebu", focus: "Island beach lifestyles, high-fashion styling, and single parenting." },
+      { rank: 75, name: "Nadine Lustre", reach: "12M+", location: "Siargao / Manila", focus: "Eco-tourism, island living, indie music releases, and sustainable advocacy." },
+      { rank: 76, name: "Camille Trinidad (JaMill)", reach: "10M+", location: "Nueva Ecija / Cavite", focus: "Personal lifestyle rebuilding, beauty tips, and casual daily routine videos." },
+      { rank: 77, name: "Chesca Garcia-Kramer", reach: "9M+", location: "Antipolo, Rizal", focus: "Christian family values, homeschool routines, and home management tips." },
+      { rank: 78, name: "Daniel Matsunaga", reach: "6M+", location: "Taguig, Metro Manila", focus: "Fitness conditioning, football coaching, pet rescue, and culinary reels." },
+      { rank: 79, name: "Solenn Heussaff", reach: "8M+", location: "Makati, Metro Manila", focus: "Mixed-media art processes, parenting two daughters, and home renovations." },
+      { rank: 80, name: "Bogart the Explorer (Marco Ho)", reach: "5M+", location: "Davao / Manila", focus: "Parody wildlife documentaries, Australian-accented tours, and bar hopping." },
+      { rank: 81, name: "Jessica Godinez (Jecka)", reach: "5M+", location: "Cavite", focus: "Lifestyle aesthetics, product discoveries, and relatable relationship content." },
+      { rank: 82, name: "Zach Lucero (Makina)", reach: "4M+", location: "Pasig, Metro Manila", focus: "Serious motorcycle test rides, community ride-alongs, and bike mechanics." },
+      { rank: 83, name: "Motodeck", reach: "5M+", location: "Cebu / Manila", focus: "Long-distance big bike road tours, motovlog track days, and garage tours." },
+      { rank: 84, name: "Jao Moto", reach: "4M+", location: "Manila", focus: "Urban traffic survival motovlogs, budget scooter reviews, and modifications." },
+      { rank: 85, name: "The Poor Traveler", reach: "4M+", location: "Taguig / Batangas", focus: "Strict budget travel spreadsheets, DIY visa guides, and travel itinerary breakdowns." },
+      { rank: 86, name: "Sulit Tech Reviews", reach: "4M+", location: "Bulacan", focus: "Budget-friendly Android smartphone performance breakdowns and PC components." },
+      { rank: 87, name: "Mighty Magulang (Mona Veluz)", reach: "4M+", location: "Quezon City", focus: "Deep-dive genealogical histories, Philippine historical facts, and genealogy maps." },
+      { rank: 88, name: "Sir Ichan", reach: "4M+", location: "Laguna", focus: "Elementary science experiment demonstrations and educational classroom humor." },
+      { rank: 89, name: "Gloc-9 (Aristotle Pollisco)", reach: "7M+", location: "Rizal", focus: "Indie rap songwriting processes, food catering ventures, and lyric breakdowns." },
+      { rank: 90, name: "Rendon Labador", reach: "4M+", location: "Pampanga / Manila", focus: "Hardline motivational talks, bodybuilding form checks, and controversial takes." },
+      { rank: 91, name: "Dexie Diaz", reach: "6M+", location: "Metro Manila", focus: "Mobile Legends gaming streams, casual cosplay, and TikTok lip-syncs." },
+      { rank: 92, name: "Kristof", reach: "4M+", location: "Cavite", focus: "Video game challenges, Discord comedy servers, and reaction videos." },
+      { rank: 93, name: "Kath and Gene", reach: "4M+", location: "Cavite", focus: "Cozy couple recipes, budget marketplace hauls, and pantry cooking." },
+      { rank: 94, name: "Foodie Fred", reach: "4M+", location: "Quezon City", focus: "Fast-cut, aesthetic voiceover home cooking tutorials and copycat fast-food recipes." },
+      { rank: 95, name: "Peachy Twinx", reach: "5M+", location: "Manila", focus: "Twin dance synchronization, TikTok beauty trends, and adolescent fashion." },
+      { rank: 96, name: "Jacob Alava", reach: "3M+", location: "Manila", focus: "Realistic gym transformation advice, natural bodybuilding tips, and diet splits." },
+      { rank: 97, name: "Coach D (Danilo)", reach: "3M+", location: "Metro Manila", focus: "Functional home calisthenics, fat loss plans, and posture correction guides." },
+      { rank: 98, name: "Lloyd Cafe Cadena (Legacy)", reach: "9M+", location: "Parañaque", focus: "Classic street comedy, neighborhood outreach, and iconic early YouTube vlogs." },
+      { rank: 99, name: "Christian Antolin", reach: "4M+", location: "Manila", focus: "Dubbed teleserye parody reactions and theatrical Pinoy soap-opera parodies." },
+      { rank: 100, name: "Chinkee Tan", reach: "6M+", location: "Quezon City", focus: "Personal financial planning, debt-elimination guides, and micro-investment tips." }
+    ];
+
+    const tbody = document.getElementById("creatorList");
+    const searchInput = document.getElementById("creatorSearch");
+    const resetBtn = document.getElementById("resetBtn");
+    const resultCount = document.getElementById("resultCount");
+    const noResults = document.getElementById("noResults");
+
+    function render(list) {
+      if (list.length === 0) {
+        tbody.innerHTML = "";
+        noResults.style.display = "block";
+        resultCount.textContent = "Showing 0 creators";
+        return;
+      }
+
+      noResults.style.display = "none";
+      resultCount.textContent = `Showing ${list.length} creator${list.length > 1 ? "s" : ""}`;
+
+      tbody.innerHTML = list.map(c => `
+        <tr>
+          <td><span class="rank-badge">${c.rank}</span></td>
+          <td><span class="creator-name">${c.name}</span></td>
+          <td><span class="reach-badge">${c.reach}</span></td>
+          <td><span class="location-tag">${c.location}</span></td>
+          <td><span class="focus-text">${c.focus}</span></td>
+        </tr>
+      `).join("");
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const filtered = creators.filter(c => 
+        c.name.toLowerCase().includes(q) ||
+        c.location.toLowerCase().includes(q) ||
+        c.focus.toLowerCase().includes(q)
+      );
+      render(filtered);
+    });
+
+    resetBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      render(creators);
+    });
+
+    render(creators);
+  </script>
 </body>
 </html>
