@@ -37,11 +37,149 @@
     nav a:hover, nav a.active { color: var(--accent-yellow); }
     .btn-action { border: 1.5px solid var(--accent-yellow); color: var(--accent-yellow); padding: 6px 14px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 0.82rem; white-space: nowrap; }
     .btn-action:hover { background: var(--accent-yellow); color: #000; box-shadow: 0 0 12px var(--yellow-glow); }
+    
     main { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 24px 16px 40px; }
     .tag-yellow { color: var(--accent-yellow); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: inline-block; }
     h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
     p.subtitle { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
 
+    /* ========================================================
+       TOP 10 MOVING FACECARDS UI / CAROUSEL
+       ======================================================== */
+    .ticker-section {
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .ticker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .ticker-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ticker-title span {
+      background: var(--accent-yellow);
+      color: #000;
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+    .ticker-container {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+    .ticker-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      animation: scrollTrack 30s linear infinite;
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes scrollTrack {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .facecard {
+      width: 250px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .facecard:hover {
+      border-color: var(--accent-yellow);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(250, 204, 21, 0.15);
+      background: var(--card-hover);
+    }
+    .facecard-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .facecard-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #27272a, #3f3f46);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent-yellow);
+      flex-shrink: 0;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .facecard-rank {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--accent-yellow);
+      background: rgba(250, 204, 21, 0.12);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(250, 204, 21, 0.3);
+    }
+    .facecard-info h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 140px;
+    }
+    .facecard-loc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .facecard-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.78rem;
+    }
+    .facecard-reach {
+      font-weight: 800;
+      color: #fff;
+    }
+    .facecard-trend {
+      color: #22c55e;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* Controls & Main Directory Table */
     .filter-wrapper { margin-bottom: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
     .search-input {
       flex: 1;
@@ -148,8 +286,23 @@
   <main>
     <span class="tag-yellow">Live Influence Index</span>
     <h1>Top 100 Most Influential Creators</h1>
-    <p class="subtitle">Ranked automatically from Firebase Firestore with instant live sync.</p>
+    <p class="subtitle">Real-time digital ranking powered by Firebase Firestore live stream.</p>
 
+    <!-- MOVING TOP 10 FACECARDS CAROUSEL -->
+    <section class="ticker-section">
+      <div class="ticker-header">
+        <div class="ticker-title">
+          <span>LIVE</span> Top 10 Trending Facecards
+        </div>
+      </div>
+      <div class="ticker-container">
+        <div class="ticker-track" id="topCardsTrack">
+          <!-- Live Top 10 Facecards rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL SEARCH & DIRECTORY TABLE -->
     <div class="filter-wrapper">
       <input type="text" id="creatorSearch" class="search-input" placeholder="Search by creator, location, or niche...">
       <button id="resetBtn" class="btn-reset">Reset</button>
@@ -196,6 +349,7 @@
     const db = firebase.firestore();
 
     const tbody = document.getElementById("creatorList");
+    const topCardsTrack = document.getElementById("topCardsTrack");
     const searchInput = document.getElementById("creatorSearch");
     const resetBtn = document.getElementById("resetBtn");
     const resultsCount = document.getElementById("resultsCount");
@@ -203,7 +357,44 @@
 
     let creatorsData = [];
 
-    function render(list) {
+    // Helper: extracts up to 2 initials for the avatar facecard
+    function getInitials(name) {
+      if (!name) return "PH";
+      const parts = name.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/);
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+      return name.substring(0, 2).toUpperCase();
+    }
+
+    // Render Moving Top 10 Facecards ticker
+    function renderTopCards(creators) {
+      const top10 = creators.slice(0, 10);
+      if (top10.length === 0) return;
+
+      const cardsHtml = top10.map((c, i) => `
+        <div class="facecard">
+          <div class="facecard-rank">#${i + 1}</div>
+          <div class="facecard-top">
+            <div class="facecard-avatar">${getInitials(c.name)}</div>
+            <div class="facecard-info">
+              <h4 title="${c.name || ''}">${c.name || 'Anonymous'}</h4>
+              <div class="facecard-loc">${c.location || 'Philippines'}</div>
+            </div>
+          </div>
+          <div class="facecard-footer">
+            <span class="facecard-reach">${c.reach || 'N/A'}</span>
+            <span class="facecard-trend">▲ Buzzing</span>
+          </div>
+        </div>
+      `).join("");
+
+      // Duplicated twice to ensure an infinite, seamless CSS marquee loop
+      topCardsTrack.innerHTML = cardsHtml + cardsHtml;
+    }
+
+    // Render Full Table Directory
+    function renderTable(list) {
       if (list.length === 0) {
         tbody.innerHTML = "";
         noResults.style.display = "block";
@@ -225,7 +416,7 @@
       `).join("");
     }
 
-    // 100% Real-time stream using onSnapshot
+    // Live Snapshot Listener
     function loadFirestoreRealtime() {
       db.collection("creators")
         .orderBy("trend_score", "desc")
@@ -240,7 +431,10 @@
             creatorsData.push({ id: doc.id, ...doc.data() });
           });
 
-          // If a search query is typed, preserve the search view
+          // Always update the Top 10 Facecards from the master real-time dataset
+          renderTopCards(creatorsData);
+
+          // Update table, respecting any active user search query
           const query = searchInput.value.toLowerCase().trim();
           if (query) {
             const filtered = creatorsData.filter(c => 
@@ -248,9 +442,9 @@
               (c.location && c.location.toLowerCase().includes(query)) ||
               (c.focus && c.focus.toLowerCase().includes(query))
             );
-            render(filtered);
+            renderTable(filtered);
           } else {
-            render(creatorsData);
+            renderTable(creatorsData);
           }
         }, (err) => {
           console.error("Firestore live listener error:", err);
@@ -258,6 +452,7 @@
         });
     }
 
+    // Search and Reset filters
     searchInput.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
       const filtered = creatorsData.filter(c => 
@@ -265,12 +460,12 @@
         (c.location && c.location.toLowerCase().includes(q)) ||
         (c.focus && c.focus.toLowerCase().includes(q))
       );
-      render(filtered);
+      renderTable(filtered);
     });
 
     resetBtn.addEventListener("click", () => {
       searchInput.value = "";
-      render(creatorsData);
+      renderTable(creatorsData);
     });
 
     loadFirestoreRealtime();
