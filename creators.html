@@ -56,7 +56,7 @@
       transition: border-color 0.2s;
     }
     .search-input:focus { border-color: var(--accent-yellow); }
-    .btn-reset, .btn-seed {
+    .btn-reset {
       background: var(--card-bg);
       border: 1px solid var(--border);
       color: var(--text-muted);
@@ -68,9 +68,15 @@
       transition: all 0.2s ease;
     }
     .btn-reset:hover { background: var(--border); color: var(--text-white); }
-    .btn-seed { border-color: var(--accent-yellow); color: var(--accent-yellow); display: none; }
-    .btn-seed:hover { background: var(--accent-yellow); color: #000; }
-    .results-count { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; }
+    .results-count { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .live-pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+    }
 
     .table-container {
       width: 100%;
@@ -142,15 +148,16 @@
   <main>
     <span class="tag-yellow">Live Influence Index</span>
     <h1>Top 100 Most Influential Creators</h1>
-    <p class="subtitle">Ranked automatically from Firebase Firestore based on live influence and trend momentum.</p>
+    <p class="subtitle">Ranked automatically from Firebase Firestore with instant live sync.</p>
 
     <div class="filter-wrapper">
       <input type="text" id="creatorSearch" class="search-input" placeholder="Search by creator, location, or niche...">
       <button id="resetBtn" class="btn-reset">Reset</button>
-      <button id="seedBtn" class="btn-seed">Upload 100 Creators to Firebase</button>
     </div>
 
-    <div class="results-count" id="resultsCount">Connecting to Firestore...</div>
+    <div class="results-count" id="resultsCount">
+      <span class="live-pulse"></span> Connecting to live Firestore feed...
+    </div>
 
     <div class="table-container">
       <table>
@@ -191,125 +198,21 @@
     const tbody = document.getElementById("creatorList");
     const searchInput = document.getElementById("creatorSearch");
     const resetBtn = document.getElementById("resetBtn");
-    const seedBtn = document.getElementById("seedBtn");
     const resultsCount = document.getElementById("resultsCount");
     const noResults = document.getElementById("noResults");
 
     let creatorsData = [];
 
-    const initial100Data = [
-      { name: "Cong TV (Lincoln Velasquez)", reach: "32M+", location: "Cavite", focus: "The gold standard of Filipino community loyalty. Spearheaded the Team Payaman collective, creating cultural catchphrases and multi-million-peso consumer conversions.", trend_score: 100 },
-      { name: "Vice Ganda", reach: "45M+", location: "Quezon City", focus: "Shapes everyday Philippine mainstream pop-culture vocabulary, national social discourse, and box-office entertainment trends.", trend_score: 99 },
-      { name: "Heart Evangelista", reach: "20M+", location: "Makati / Sorsogon", focus: "Unrivaled commercial high-fashion conversion power. Drives immediate sell-outs for luxury brands and global fashion houses.", trend_score: 98 },
-      { name: "Niana Guerrero", reach: "85M+", location: "Quezon City", focus: "The country's biggest global pop-cultural export on TikTok, setting worldwide dance choreographies and audio trends.", trend_score: 97 },
-      { name: "Ivana Alawi", reach: "48M+", location: "Taguig / Parañaque", focus: "Commanding mass appeal across all demographics, driving massive viral attention and grassroots philanthropic mobilization.", trend_score: 96 },
-      { name: "Ninong Ry (Ryan Reyes)", reach: "14M+", location: "Malabon", focus: "Revolutionized culinary YouTube in the Philippines, reviving everyday street cooking culture with high-tier brand trust.", trend_score: 95 },
-      { name: "Doc Willie Ong", reach: "42M+", location: "Pasay / Manila", focus: "Massive public health credibility, providing accessible medical guidance to millions of everyday households nationwide.", trend_score: 94 },
-      { name: "Andrea Brillantes", reach: "40M+", location: "Metro Manila", focus: "Gen-Z trendsetter whose personal style, beauty ventures (Lucky Beauty), and social reels immediately set viral youth aesthetics.", trend_score: 93 },
-      { name: "Kathryn Bernardo", reach: "22M+", location: "Quezon City", focus: "Massive crossover cultural leverage, unmatched commercial brand credibility, and box-office box office appeal.", trend_score: 92 },
-      { name: "Erwan Heussaff / FEATR", reach: "10M+", location: "Makati, Metro Manila", focus: "James Beard-winning cultural culinary journalism, elevating local heritage cuisine and indigenous cooking to the global stage.", trend_score: 91 },
-      { name: "Viy Cortez-Velasquez", reach: "25M+", location: "Cavite", focus: "D2C business powerhouse turning digital audience loyalty into booming brick-and-mortar cosmetics and wellness retail.", trend_score: 90 },
-      { name: "Arshie Larga", reach: "13M+", location: "Marinduque", focus: "Pioneering public medical communication, debunking health misconceptions, and mobilizing community medicine charity.", trend_score: 89 },
-      { name: "Slater Young", reach: "5M+", location: "Cebu City", focus: "High-trust authority in modern civil engineering, home architecture, eco-conscious development, and sustainable builds.", trend_score: 88 },
-      { name: "Abi Marquez (Lumpia Queen)", reach: "12M+", location: "Laguna / Manila", focus: "Webby Award winner and global culinary sensation putting modernized Filipino gastronomy into international feeds.", trend_score: 87 },
-      { name: "Zeinab Harake", reach: "34M+", location: "Cavite / Manila", focus: "High-engagement lifestyle influencer capable of turning everyday personal moments and brand launches into trending topics.", trend_score: 86 },
-      { name: "Small Laude", reach: "14M+", location: "Greenhills, San Juan", focus: "Cultural meme creator and high-society lifestyle icon who bridged luxury living and viral relatable humor.", trend_score: 85 },
-      { name: "Esnyr Ranollo", reach: "14M+", location: "Davao / Manila", focus: "A cultural chronicler capturing shared Filipino high school memories through ultra-sharp, universally relatable character comedy.", trend_score: 84 },
-      { name: "Geo Ong", reach: "18M+", location: "Puerto Princesa, Palawan", focus: "Commands an intensely loyal counter-culture following centered around off-grid provincial living and independent music.", trend_score: 83 },
-      { name: "Ranz Kyle", reach: "38M+", location: "Quezon City", focus: "Pioneer in the digital dance movement and high-production content curation across Southeast Asia.", trend_score: 82 },
-      { name: "Macoy Dubs (Mark Averilla)", reach: "11M+", location: "Quezon City", focus: "A major voice in progressive sociopolitical commentary, corporate office humor, and Auntie Julie satire.", trend_score: 81 },
-      { name: "Lyqa Maravilla (Team Lyqa)", reach: "6M+", location: "Quezon City", focus: "Pioneered free ed-tech content, empowering hundreds of thousands of civil service, licensure, and academic test-takers.", trend_score: 80 },
-      { name: "Toni Fowler (Toro Family)", reach: "26M+", location: "Quezon City", focus: "Mass-engagement reality creator whose raw unscripted format and original releases dominate working-class digital viewership.", trend_score: 79 },
-      { name: "Alex Gonzaga", reach: "35M+", location: "Taytay, Rizal", focus: "Early vlogging titan whose fast-paced, irreverent humor helped shape the format of modern celebrity vlogs.", trend_score: 78 },
-      { name: "Mimiyuuuh", reach: "8M+", location: "Quezon City", focus: "Linguistic trendsetter whose expressions and fashion parody permanently entered modern Filipino everyday slang.", trend_score: 77 },
-      { name: "PaoLUL", reach: "7M+", location: "Metro Manila", focus: "The internet's town square for Pinoy internet commentary, critiquing meme culture and media literacy with sharp satire.", trend_score: 76 },
-      { name: "Wil Dasovich", reach: "11M+", location: "Makati, Metro Manila", focus: "Documentary-level storytelling that inspired an entire generation of video creators to pick up a camera.", trend_score: 75 },
-      { name: "Akosi Dogie (Christian San Jose)", reach: "12M+", location: "Cavite", focus: "The godfather of Philippine competitive Mobile Legends streaming, esports team incubation, and gaming streaming culture.", trend_score: 74 },
-      { name: "Unbox Diaries (Vince Vandorpe)", reach: "15M+", location: "Metro Manila", focus: "The country's definitive tech consumer decision maker, driving local smartphone sales and gadget launches.", trend_score: 73 },
-      { name: "Donnalyn Bartolome", reach: "30M+", location: "Metro Manila", focus: "Massive event and high-production stunt creator with an ability to capture mainstream tabloid and online headlines.", trend_score: 72 },
-      { name: "Nadine Lustre", reach: "12M+", location: "Siargao / Manila", focus: "Lifestyle and environmental thought leader setting the benchmark for sustainable living and creative independence.", trend_score: 71 },
-      { name: "Inka Magnaye", reach: "9M+", location: "Metro Manila", focus: "Elevated the voice-over industry into the mainstream spotlight while advocating for body positivity and mental health.", trend_score: 70 },
-      { name: "Chinkee Tan", reach: "6M+", location: "Quezon City", focus: "The most trusted personal financial literacy mentor for everyday workers, eliminating debt through actionable coaching.", trend_score: 69 },
-      { name: "Davao Conyo (Phillip Te)", reach: "10M+", location: "Davao City", focus: "Bridged regional humor across Visayas, Mindanao, and Luzon with viral Tagalog-Bisaya dubs and sketches.", trend_score: 68 },
-      { name: "Anne Curtis", reach: "22M+", location: "Makati, Metro Manila", focus: "Enduring mainstream lifestyle icon seamlessly driving marathon wellness communities and major fashion retail.", trend_score: 67 },
-      { name: "Mighty Magulang (Mona Veluz)", reach: "4M+", location: "Quezon City", focus: "The country's foremost digital history educator, decoding genealogical links and historical archives for social media audiences.", trend_score: 66 },
-      { name: "Chef RV Manabat", reach: "9M+", location: "Biñan, Laguna", focus: "The primary authority for home baking and MSME culinary businesses across the Philippine provinces.", trend_score: 65 },
-      { name: "Junnie Boy (Marlon Velasquez)", reach: "13M+", location: "Cavite", focus: "A major pillar of Team Payaman whose raw family comedy commands millions of organic views within hours.", trend_score: 64 },
-      { name: "ChooxTV (Edgar Dumali)", reach: "16M+", location: "General Santos City", focus: "Redefined live gaming entertainment with trademark humor and regional comedic commentary.", trend_score: 63 },
-      { name: "Alodia Gosiengfiao", reach: "13M+", location: "Quezon City", focus: "Pioneered gaming, esports, and cosplay culture in Southeast Asia, paving the way for female gamers.", trend_score: 62 },
-      { name: "Kryz Uy", reach: "5M+", location: "Cebu City", focus: "The leading voice for mindful parenting, interior minimalism, and modern maternal lifestyle through the Skyfam community.", trend_score: 61 },
-      { name: "Kyle Jennermann (BecomingFilipino)", reach: "6M+", location: "Cagayan de Oro", focus: "Championed regional tourism and community culture, inspiring deep appreciation for local traditions.", trend_score: 60 },
-      { name: "Nico Bolzico", reach: "6M+", location: "Makati, Metro Manila", focus: "Created viral comedy concepts (Bullied Husbands Club) alongside tangible agricultural innovations.", trend_score: 59 },
-      { name: "Zach Lucero (Makina)", reach: "4M+", location: "Pasig, Metro Manila", focus: "The authoritative critical voice for the massive Philippine motorcycle community and rider road safety.", trend_score: 58 },
-      { name: "The Poor Traveler", reach: "4M+", location: "Taguig / Batangas", focus: "The definitive guide for budget travel spreadsheets, visa preparation, and DIY international tourism.", trend_score: 57 },
-      { name: "Mary Bautista", reach: "7M+", location: "Antipolo, Rizal", focus: "Clean, direct consumer gadget reviews that directly guide everyday buyers in purchasing tech.", trend_score: 56 },
-      { name: "Judy Ann Santos (Kitchen)", reach: "6M+", location: "Alabang, Muntinlupa", focus: "Celebrity-turned-culinary mentor offering trusted, home-cooked family meal guides.", trend_score: 55 },
-      { name: "Queenay Mercado", reach: "19M+", location: "Batangas", focus: "Popularized localized Batangueña dialect comedy, celebrating province life and regional identity.", trend_score: 54 },
-      { name: "Steven Bansil", reach: "9M+", location: "Quezon City", focus: "The undisputed digital voice for the vast Philippine BPO and call-center workforce.", trend_score: 53 },
-      { name: "Whamos Cruz", reach: "24M+", location: "Quezon City", focus: "High-volume mass street antics driving deep organic engagement across local working-class audiences.", trend_score: 52 },
-      { name: "Gloc-9 (Aristotle Pollisco)", reach: "7M+", location: "Rizal", focus: "Musical storyteller whose commentary on social realities and working-class struggles transcends generations.", trend_score: 51 },
-      { name: "Angel Locsin", reach: "9M+", location: "Taguig, Metro Manila", focus: "The premier example of humanitarian leadership using her platform for frontline disaster relief mobilization.", trend_score: 50 },
-      { name: "Kuya Kim Atienza", reach: "8M+", location: "Manila", focus: "The authority on wildlife, science trivia, and active lifestyle habits across television and social feeds.", trend_score: 49 },
-      { name: "Liza Soberano", reach: "18M+", location: "Manila / Los Angeles", focus: "Pioneering creative agency and vocal independence for Filipino artists venturing into Hollywood.", trend_score: 48 },
-      { name: "Boss Keng", reach: "12M+", location: "Cavite", focus: "Major anchor in Team Payaman, driving significant automotive, motorcycle, and streetwear interest.", trend_score: 47 },
-      { name: "Yanyan De Jesus", reach: "28M+", location: "Taguig, Metro Manila", focus: "High-caliber performance dance and international creator collaborations representing local street style.", trend_score: 46 },
-      { name: "Francine Diaz", reach: "13M+", location: "Cavite / Manila", focus: "Wholesome lifestyle role model for the younger generation with deep brand loyalty across teen demographics.", trend_score: 45 },
-      { name: "Michelle Dy", reach: "9M+", location: "La Union / Manila", focus: "One of the foundational pioneer beauty gurus who established the local cosmetics vlogging landscape.", trend_score: 44 },
-      { name: "Motodeck", reach: "5M+", location: "Cebu / Manila", focus: "Top-tier motovlog inspiration driving long-distance touring and performance motorcycle gear culture.", trend_score: 43 },
-      { name: "Sulit Tech Reviews", reach: "4M+", location: "Bulacan", focus: "The champion for budget-conscious Filipino smartphone and gaming hardware buyers.", trend_score: 42 },
-      { name: "Anne Clutz", reach: "6M+", location: "Cavite", focus: "Everyday authentic beauty tests that make drugstore cosmetics accessible to everyday moms and students.", trend_score: 41 },
-      { name: "Basel Manadil (Hungry Syrian)", reach: "8M+", location: "Pampanga / Manila", focus: "Community relief efforts and uplifting public charity videos highlighting grassroots Filipino generosity.", trend_score: 40 },
-      { name: "Kim Chiu", reach: "14M+", location: "Quezon City", focus: "High-energy variety entertainment and fitness motivation with enduring television-to-digital crossover.", trend_score: 39 },
-      { name: "Spencer Serafica", reach: "18M+", location: "Manila", focus: "Fast-hit situational humor spotlighting the absurdities of daily urban commuting and Filipino social habits.", trend_score: 38 },
-      { name: "Mona Gonzales", reach: "22M+", location: "Manila", focus: "Global viral vocal covers and Japanese/anime music performances representing local musical talent.", trend_score: 37 },
-      { name: "Rei Germar", reach: "8M+", location: "Pasig, Metro Manila", focus: "Aesthetic lifestyle curator who dictates youthful neutral fashion palettes and travel inspiration.", trend_score: 36 },
-      { name: "Toni Sia", reach: "7M+", location: "Quezon City", focus: "Pioneered mid-size and plus-size fashion advocacy and candid lifestyle reviews.", trend_score: 35 },
-      { name: "Sir Ichan", reach: "4M+", location: "Laguna", focus: "Made elementary science education entertaining for school children through engaging DIY visual experiments.", trend_score: 34 },
-      { name: "Foodie Fred", reach: "4M+", location: "Quezon City", focus: "Simplified aesthetic cooking videos making restaurant-grade recipes easily recreateable at home.", trend_score: 33 },
-      { name: "Jillian Ward", reach: "16M+", location: "Metro Manila", focus: "Next-generation mainstream drama actress pulling substantial teenage view counts on TikTok.", trend_score: 32 },
-      { name: "Mika Salamanca", reach: "16M+", location: "Manila", focus: "Key personality among Gen-Z beauty consumers and trend-driven digital challenges.", trend_score: 31 },
-      { name: "Vien Iligan-Velasquez", reach: "8M+", location: "Cavite", focus: "Real-world parenting and domestic life balance resonating deeply with young Filipino working mothers.", trend_score: 30 },
-      { name: "Chesca Garcia-Kramer", reach: "9M+", location: "Antipolo, Rizal", focus: "The country's classic family-first blueprint, modeling intentional home education and parenting.", trend_score: 29 },
-      { name: "Jao Moto", reach: "4M+", location: "Manila", focus: "Direct, practical advice on daily motorcycle commuting, traffic survival, and budget maintenance.", trend_score: 28 },
-      { name: "Rendon Labador", reach: "4M+", location: "Pampanga / Manila", focus: "Polarizing motivational personality who consistently ignites nationwide debate around discipline and fitness.", trend_score: 27 },
-      { name: "Baste & Yow", reach: "7M+", location: "Cavite", focus: "Key creators in the Payaman car culture, street builds, and collaborative youth stunts.", trend_score: 26 },
-      { name: "Solenn Heussaff", reach: "8M+", location: "Makati, Metro Manila", focus: "Celebrated for fine arts, bohemian mothering, and authentic, unglamorized family living.", trend_score: 25 },
-      { name: "Dexie Diaz", reach: "6M+", location: "Metro Manila", focus: "Key bridge between mainstream live game streaming, cosplay aesthetics, and lifestyle trends.", trend_score: 24 },
-      { name: "Sanya Lopez", reach: "17M+", location: "Quezon City", focus: "High-reach television personality whose energetic dance videos capture widespread mass appeal.", trend_score: 23 },
-      { name: "Grae Cabase", reach: "20M+", location: "Metro Manila", focus: "Rapid-fire comedy and situational skits capturing youth digital media habits.", trend_score: 22 },
-      { name: "Sofia Andres", reach: "10M+", location: "Taguig, Metro Manila", focus: "Modern maternal fashion aesthetics and curated commercial brand campaigns.", trend_score: 21 },
-      { name: "Dudut", reach: "6M+", location: "Cavite", focus: "Beloved culinary explorer and self-deprecating comedy figure across the Team Payaman network.", trend_score: 20 },
-      { name: "Yassi Pressman", reach: "10M+", location: "Metro Manila", focus: "Active wellness, female fitness conditioning, and mental resilience advocacy.", trend_score: 19 },
-      { name: "Maja Salvador", reach: "10M+", location: "Metro Manila", focus: "Stage performance excellence and accessible motherhood vlogging.", trend_score: 18 },
-      { name: "Camille Trinidad (JaMill)", reach: "10M+", location: "Nueva Ecija / Cavite", focus: "Resilient content personality rebuilding an independent lifestyle brand after early YouTube stardom.", trend_score: 17 },
-      { name: "Sachzna Laparan", reach: "10M+", location: "Pampanga / Manila", focus: "Glamour lifestyle creator with active engagement across cosmetics, modeling, and music.", trend_score: 16 },
-      { name: "Christian Antolin", reach: "4M+", location: "Manila", focus: "The master of dramatic Pinoy teleserye parody and satirical television reactions.", trend_score: 15 },
-      { name: "Coach D (Danilo)", reach: "3M+", location: "Metro Manila", focus: "Accessible home calisthenics and practical fitness routines tailored for working Filipinos.", trend_score: 14 },
-      { name: "Jacob Alava", reach: "3M+", location: "Manila", focus: "Honest, science-based fitness education, natural bodybuilding, and meal prep advice.", trend_score: 13 },
-      { name: "Jessica Godinez (Jecka)", reach: "5M+", location: "Cavite", focus: "Subtle couple humor and relatable young-adult domestic life content.", trend_score: 12 },
-      { name: "Kath and Gene", reach: "4M+", location: "Cavite", focus: "Comforting budget home-cooking and cozy wet-market grocery guides.", trend_score: 11 },
-      { name: "Barbie Imperial", reach: "8M+", location: "Quezon City", focus: "Celebrity lifestyle updates and behind-the-scenes glimpses into television drama sets.", trend_score: 10 },
-      { name: "Sarah Lahbati", reach: "8M+", location: "Makati / Cebu", focus: "Modern single motherhood, island escapism, and clean luxury fashion.", trend_score: 9 },
-      { name: "Almoranas Boy / Mentos", reach: "6M+", location: "Cavite", focus: "High-volume comedic street pranks and squad entertainment for broad mass audiences.", trend_score: 8 },
-      { name: "Daniel Matsunaga", reach: "6M+", location: "Taguig, Metro Manila", focus: "Inspiring youth football coaching, pet rescue drives, and Brazilian-Filipino culinary fusion.", trend_score: 7 },
-      { name: "Kristof", reach: "4M+", location: "Cavite", focus: "Interactive Discord community humor and multi-player gaming challenges.", trend_score: 6 },
-      { name: "Bogart the Explorer (Marco Ho)", reach: "5M+", location: "Davao / Manila", focus: "Pioneering parody character who set the standard for satirical travel vlogging in the early 2010s.", trend_score: 5 },
-      { name: "Peachy Twinx", reach: "5M+", location: "Manila", focus: "Synchronized teen dance choreographies and fast-moving short-form fashion routines.", trend_score: 4 },
-      { name: "Kyline Alcantara", reach: "8M+", location: "Metro Manila", focus: "Youth drama artistry, runway moments, and editorial beauty work.", trend_score: 3 },
-      { name: "Carlyn Ocampo", reach: "12M+", location: "Cavite", focus: "P-Pop performance heritage combined with gentle, approachable young motherhood updates.", trend_score: 2 },
-      { name: "Lloyd Cafe Cadena (Legacy)", reach: "9M+", location: "Parañaque", focus: "The foundational architect of modern Filipino comedic vlogging whose community-first philosophy still defines the scene.", trend_score: 1 }
-    ];
-
     function render(list) {
       if (list.length === 0) {
         tbody.innerHTML = "";
         noResults.style.display = "block";
-        resultsCount.textContent = "Showing 0 creators";
+        resultsCount.innerHTML = `<span class="live-pulse"></span> Showing 0 creators`;
         return;
       }
 
       noResults.style.display = "none";
-      resultsCount.textContent = `Showing ${list.length} creator${list.length > 1 ? "s" : ""}`;
+      resultsCount.innerHTML = `<span class="live-pulse"></span> Live Sync Active: Showing ${list.length} creator${list.length > 1 ? "s" : ""}`;
 
       tbody.innerHTML = list.map((c, index) => `
         <tr>
@@ -322,70 +225,38 @@
       `).join("");
     }
 
-    async function loadFirestoreCreators() {
-      try {
-        resultsCount.textContent = "Connecting to Firebase...";
-        const snapshot = await db.collection("creators")
-          .orderBy("trend_score", "desc")
-          .get();
+    // 100% Real-time stream using onSnapshot
+    function loadFirestoreRealtime() {
+      db.collection("creators")
+        .orderBy("trend_score", "desc")
+        .onSnapshot((snapshot) => {
+          if (snapshot.empty) {
+            resultsCount.innerHTML = "Collection is empty.";
+            return;
+          }
 
-        if (snapshot.empty) {
-          resultsCount.textContent = "Database connected, but collection is empty.";
-          seedBtn.style.display = "inline-block";
-          return;
-        }
+          creatorsData = [];
+          snapshot.forEach((doc) => {
+            creatorsData.push({ id: doc.id, ...doc.data() });
+          });
 
-        creatorsData = [];
-        snapshot.forEach(doc => {
-          creatorsData.push({ id: doc.id, ...doc.data() });
+          // If a search query is typed, preserve the search view
+          const query = searchInput.value.toLowerCase().trim();
+          if (query) {
+            const filtered = creatorsData.filter(c => 
+              (c.name && c.name.toLowerCase().includes(query)) ||
+              (c.location && c.location.toLowerCase().includes(query)) ||
+              (c.focus && c.focus.toLowerCase().includes(query))
+            );
+            render(filtered);
+          } else {
+            render(creatorsData);
+          }
+        }, (err) => {
+          console.error("Firestore live listener error:", err);
+          resultsCount.innerHTML = "Unable to connect to live stream.";
         });
-
-        // If you only had 1 creator manually added, show the button so you can populate all 100
-        if (creatorsData.length < 5) {
-          seedBtn.style.display = "inline-block";
-        } else {
-          seedBtn.style.display = "none";
-        }
-
-        render(creatorsData);
-      } catch (err) {
-        console.error("Firestore error:", err);
-        resultsCount.textContent = "Unable to fetch creators from Firebase. Check security rules.";
-      }
     }
-
-    // One-click batch uploader to populate all 100 entries automatically
-    seedBtn.addEventListener("click", async () => {
-      if (!confirm("This will upload all 100 creators to your Firebase database. Proceed?")) return;
-      
-      seedBtn.disabled = true;
-      resultsCount.textContent = "Uploading 100 creators to Firebase...";
-      
-      const batch1 = db.batch();
-      const batch2 = db.batch();
-
-      initial100Data.slice(0, 50).forEach(creator => {
-        const docRef = db.collection("creators").doc();
-        batch1.set(docRef, creator);
-      });
-
-      initial100Data.slice(50, 100).forEach(creator => {
-        const docRef = db.collection("creators").doc();
-        batch2.set(docRef, creator);
-      });
-
-      try {
-        await batch1.commit();
-        await batch2.commit();
-        alert("Success! All 100 creators are now in your Firestore database.");
-        seedBtn.style.display = "none";
-        loadFirestoreCreators();
-      } catch (e) {
-        console.error("Error seeding:", e);
-        alert("Upload failed. Ensure test mode rules allow writes.");
-        seedBtn.disabled = false;
-      }
-    });
 
     searchInput.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
@@ -402,7 +273,7 @@
       render(creatorsData);
     });
 
-    loadFirestoreCreators();
+    loadFirestoreRealtime();
   </script>
 </body>
 </html>
